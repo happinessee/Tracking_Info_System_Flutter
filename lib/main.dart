@@ -44,6 +44,7 @@ class MyAppState extends State<MyApp> {
       builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
         if (snapshot.hasData) {
           return MaterialApp(
+            debugShowCheckedModeBanner: false,
             title: 'Capstone',
             routes: Routes.routes,
             theme: ThemeData(
