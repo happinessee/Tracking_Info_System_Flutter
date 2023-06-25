@@ -5,10 +5,14 @@ import 'package:capstone/main.dart';
 import 'package:capstone/consts/default.dart';
 import 'package:capstone/consts/colors.dart';
 import 'package:capstone/consts/storage_key.dart';
+import 'package:capstone/ui/home/search_address.dart';
+import 'package:capstone/ui/home/set_digital_fence.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:webview_flutter/webview_flutter.dart';
+import 'package:kakao_flutter_sdk_navi/kakao_flutter_sdk_navi.dart';
+import 'package:daum_postcode_search/daum_postcode_search.dart';
 
 class Home extends StatelessWidget {
   Home({super.key});
@@ -53,7 +57,34 @@ class Home extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(
                         horizontal: 12, vertical: 12),
                     child: InkWell(
-                      onTap: () {},
+                      onTap: () async {
+                        DataModel model = await Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => const SearchAddress(),
+                          ),
+                        );
+                        if (await NaviApi.instance.isKakaoNaviInstalled()) {
+                          print(
+                              "*********************true****************************");
+                          // 카카오내비 앱으로 길 안내하기, WGS84 좌표계 사용
+
+                          await NaviApi.instance.navigate(
+                            option: NaviOption(coordType: CoordType.wgs84),
+                            destination: Location(
+                                name: '전남대학교', x: '126.906302', y: '35.177390'),
+                            // 경유지 추가
+                            //viaList: [
+                            //  Location(
+                            //      name: '판교역 1번출구',
+                            //      x: '127.111492',
+                            //      y: '37.395225'),
+                            //],
+                          );
+                        } else {
+                          // 카카오내비 설치 페이지로 이동
+                          launchBrowserTab(Uri.parse(NaviApi.webNaviInstall));
+                        }
+                      },
                       child: Container(
                         height: 150,
                         width: double.infinity,
@@ -135,7 +166,13 @@ class Home extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(
                         horizontal: 12, vertical: 12),
                     child: InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => const SetDigitalFence(),
+                          ),
+                        );
+                      },
                       child: Container(
                         height: 150,
                         width: double.infinity,

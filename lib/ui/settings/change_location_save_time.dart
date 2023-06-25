@@ -16,13 +16,20 @@ class ChangeLocationSaveTime extends StatelessWidget {
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             const SizedBox(height: 30),
             MenuOptionQuantityButton(
                 plusOnPressed: () {}, minusOnPressed: () {}),
             const SizedBox(height: 20),
             const Text(
-                '변경 주기를 선택해주세요. 주기가 빠를수록 정확도가 올라갑니다. 주기가 낮을수록 배터리 효율이 올라갑니다.'),
+              '변경 주기를 선택해주세요.',
+              style: TextStyle(
+                fontSize: 22,
+              ),
+            ),
+            const SizedBox(height: 3),
+            const Text('    주기가 빠를수록 정확도가 올라갑니다.\n주기가 낮을수록 배터리 효율이 올라갑니다.'),
           ],
         ),
       ),

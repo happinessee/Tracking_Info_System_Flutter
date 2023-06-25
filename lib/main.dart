@@ -8,10 +8,17 @@ import 'package:capstone/services/http.dart';
 import 'package:capstone/services/tokens.dart';
 
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:kakao_flutter_sdk_common/kakao_flutter_sdk_common.dart';
 
 void main() async {
   await dotenv.load(fileName: ".env");
   configureDio();
+  WidgetsFlutterBinding.ensureInitialized();
+
+  KakaoSdk.init(
+    nativeAppKey: '7cc55f770d5b31f7b077811cc2636460',
+    javaScriptAppKey: 'bc51daa849509ca38dffc5df41c91ccc',
+  );
 
   runApp(
     multiBlocProvider(
